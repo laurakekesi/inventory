@@ -2,9 +2,16 @@ const express = require('express');
 const morgan = require('morgan');
 require("dotenv").config();
 
+
+const {
+createNewItem
+} = require("./handlers")
 const PORT = 4000;
 
 express()
+
+// .get(/api/allItems)
+.post('/api/newItem', createNewItem)
 
 .use(function(req, res, next) {
     res.header(
