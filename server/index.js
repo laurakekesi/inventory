@@ -4,14 +4,12 @@ require("dotenv").config();
 
 
 const {
-createNewItem
+createNewItem,
+deleteItemById,
 } = require("./handlers")
 const PORT = 4000;
 
 express()
-
-// .get(/api/allItems)
-.post('/api/newItem', createNewItem)
 
 .use(function(req, res, next) {
     res.header(
@@ -36,6 +34,30 @@ express()
 .get('/', (req, res) => {
   res.status(200).json({status: 200, message: "Howdy!"})
 })
+
+// GET ENDPOINTS
+
+// POST ENDPOINTS
+.post('/api/newItem', createNewItem) 
+
+// DELETE ENDPOINTS
+
+// PATCH ENDPOINTS
+
+
+// TO DO ENDPOINTS
+
+// .get('/api/items')
+// .get('/api/items/category')
+// .get('/api/items/needToBuy')
+
+.delete('/api/item/:itemId', deleteItemById)
+
+// .patch('/api/itemQuantity/:itemId')
+// .patch('/api/itemCategory/:itemId')
+// .patch('/api/itemNeedToBuy/:itemId')
+// .patch('/api/itemName/:itemId')
+
 
 
 .listen(PORT, () => {
