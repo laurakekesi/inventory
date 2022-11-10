@@ -8,6 +8,55 @@ const options = {
 };
 
 //****************** GET HANDLERS ***********************/
+const getAllItems = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  await client.connect();
+  const db = client.db("Inventory");
+  const allItems = await db.collection("inventoryAll").find().toArray();
+  allItems
+    ? res
+        .status(200)
+        .json({ status: 200, data: allItems, message: "Items retrieved" })
+    : res.status(404).json({ status: 404, message: "Items not found :(" });
+  client.close();
+};
+
+const getItemsByCategory = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  await client.connect();
+  const db = client.db("Inventory");
+  const category = req.params.itemCategory;
+  const itemsByCat = await db
+    .collection("inventoryAll")
+    .find({ itemCategory: category })
+    .toArray();
+  itemsByCat
+    ? res
+        .status(200)
+        .json({ status: 200, data: itemsByCat, message: "Items found!" })
+    : res.status(404).json({ status: 404, message: "Category not found" });
+  client.close();
+};
+
+const getNeedToBuy = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  await client.connect();
+  const db = client.db("Inventory");
+  const itemsToBuy = await db
+    .collection("inventoryAll")
+    .find({ needToBuy: true })
+    .toArray();
+  itemsToBuy
+    ? res
+        .status(200)
+        .json({
+          status: 200,
+          data: itemsToBuy,
+          message: "Items to buy retrieved",
+        })
+    : res.status(404).json({ status: 404, message: "Items not found" });
+  client.close();
+};
 
 //****************** POST HANDLERS **********************/
 const createNewItem = async (req, res) => {
@@ -21,57 +70,38 @@ const createNewItem = async (req, res) => {
   }
   const createItem = await db.collection("inventoryAll").insertOne(newItem);
   createItem
-    ? res
-        .status(200)
-        .json({
-          status: 200,
-          data: newItem,
-          message: "Item successfully created",
-        })
+    ? res.status(200).json({
+        status: 200,
+        data: newItem,
+        message: "Item successfully created",
+      })
     : res.status(404).json({ status: 404, message: "Item not added :(" });
   client.close();
 };
 
 //****************** DELETE HANDLERS *********************/
 const deleteItemById = async (req, res) => {
-    const client = new MongoClient(MONGO_URI, options);
-    await client.connect();
-    const db = client.db("Inventory");
-    const _id = req.params.itemId;
-    const deleteItem = await db.collection("inventoryAll").findOneAndDelete({_id: ObjectId(_id)});
-    deleteItem?
-    res.status(200).json({status: 200, data: deleteItem, message: "Item deleted!"})
-    : res.status(404).json({status: 404, message: "Item not found:("});
-    client.close();
-}
+  const client = new MongoClient(MONGO_URI, options);
+  await client.connect();
+  const db = client.db("Inventory");
+  const _id = req.params.itemId;
+  const deleteItem = await db
+    .collection("inventoryAll")
+    .findOneAndDelete({ _id: ObjectId(_id) });
+  deleteItem
+    ? res
+        .status(200)
+        .json({ status: 200, data: deleteItem, message: "Item deleted!" })
+    : res.status(404).json({ status: 404, message: "Item not found:(" });
+  client.close();
+};
 
 //****************** PATCH HANDLERS **********************/
 
 module.exports = {
+  getAllItems,
+  getItemsByCategory,
+  getNeedToBuy,
   createNewItem,
-  deleteItemById
+  deleteItemById,
 };
-
-
-
-
-
-
-
-// const deletePostById = async (req, res) => {
-//     const client = new MongoClient(MONGO_URI, options);
-//     await client.connect();
-//     const db = client.db("myFinalProject");
-//     const _id = req.params.postId;
-//     const deletePost = await db
-//       .collection("post_data")
-//       .findOneAndDelete({ _id: ObjectId(_id) });
-//     deletePost
-//       ? res
-//           .status(200)
-//           .json({ status: 200, message: "Post successfully deleted!" })
-//       : res
-//           .status(404)
-//           .json({ status: 404, message: "No post found under that _id." });
-//     client.close();
-//   };
