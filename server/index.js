@@ -8,6 +8,8 @@ const {
   getNeedToBuy,
   createNewItem,
   deleteItemById,
+  updateItemQuantity,
+  updateItemCategory
 } = require("./handlers");
 const PORT = 4000;
 
@@ -46,10 +48,10 @@ express()
   .delete("/api/item/:itemId", deleteItemById)
 
   // PATCH ENDPOINTS
+  .patch('/api/itemQuantity/:itemId', updateItemQuantity)
+  .patch('/api/itemCategory/:itemId', updateItemCategory)
 
   // TO DO ENDPOINTS
-  // .patch('/api/itemQuantity/:itemId')
-  // .patch('/api/itemCategory/:itemId')
   // .patch('/api/itemNeedToBuy/:itemId')
   // .patch('/api/itemName/:itemId')
 

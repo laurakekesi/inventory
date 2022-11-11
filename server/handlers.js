@@ -97,6 +97,42 @@ const deleteItemById = async (req, res) => {
 };
 
 //****************** PATCH HANDLERS **********************/
+const updateItemQuantity = async (req, res) => {
+    const client = new MongoClient(MONGO_URI, options);
+    try {
+        client.connect();
+        const db = client.db("Inventory");
+        const _id = req.params.itemId;
+        const newQuantity = req.body.itemQuantity;
+        const itemToUpdate = await db.collection("inventoryAll").findOneAndUpdate({_id: ObjectId(_id)}, {$set: {itemQuantity: newQuantity}}, {returnNewDocument: true});     
+        itemToUpdate.value.itemQuantity !== newQuantity?
+        res.status(200).json({status: 200, data: itemToUpdate, message: `Item quantity updated to ${newQuantity}`})
+        :res.status(404).json({status: 404, message: "Item not found"});
+        client.close();
+    }
+    catch {
+        res.status(500).json({status: 500, message: "Server error!"})
+    }
+}
+
+const updateItemCategory = async (req, res) => {
+    const client = new MongoClient(MONGO_URI, options);
+    try {
+        client.connect();
+        const db = client.db("Inventory");
+        const _id = req.params.itemId;
+        const newCategory = req.body.itemCategory;
+        console.log(newCategory)
+        const updateCategory = await db.collection("inventoryAll").findOneAndUpdate({_id: ObjectId(_id)}, {$set: {itemCategory: newCategory}}, {returnNewDocument: true});
+        updateCategory.lastErrorObject.updatedExisting === true?
+        res.status(200).json({status: 200, data: updateCategory, message: `Item category updated to ${newCategory}`})
+        : res.status(404).json({status: 404, message: "Item not found"});
+        client.close();
+    }
+    catch {
+        res.status(500).json({status: 500, message: "Server error!"})
+    }
+}
 
 module.exports = {
   getAllItems,
@@ -104,4 +140,6 @@ module.exports = {
   getNeedToBuy,
   createNewItem,
   deleteItemById,
+  updateItemQuantity,
+  updateItemCategory
 };
