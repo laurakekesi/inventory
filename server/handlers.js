@@ -113,7 +113,7 @@ const updateItemQuantity = async (req, res) => {
     catch {
         res.status(500).json({status: 500, message: "Server error!"})
     }
-}
+};
 
 const updateItemCategory = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
@@ -122,7 +122,6 @@ const updateItemCategory = async (req, res) => {
         const db = client.db("Inventory");
         const _id = req.params.itemId;
         const newCategory = req.body.itemCategory;
-        console.log(newCategory)
         const updateCategory = await db.collection("inventoryAll").findOneAndUpdate({_id: ObjectId(_id)}, {$set: {itemCategory: newCategory}}, {returnNewDocument: true});
         updateCategory.lastErrorObject.updatedExisting === true?
         res.status(200).json({status: 200, data: updateCategory, message: `Item category updated to ${newCategory}`})
@@ -132,7 +131,44 @@ const updateItemCategory = async (req, res) => {
     catch {
         res.status(500).json({status: 500, message: "Server error!"})
     }
+};
+
+const updateItemNeedToBuy = async (req, res) => {
+    const client = new MongoClient(MONGO_URI, options);
+    try {
+        await client.connect();
+        const db = client.db("Inventory");
+        const _id = req.params.itemId;
+        const needToBuy = req.body.needToBuy;
+        const updateNeedToBuy = await db.collection("inventoryAll").findOneAndUpdate({_id: ObjectId(_id)}, {$set: {needToBuy: needToBuy}}, {returnNewDocument: true});
+        updateNeedToBuy.lastErrorObject.updatedExisting === true?
+        res.status(200).json({status: 200, data: updateNeedToBuy, message: `Item need to buy updated to ${needToBuy}`})
+        : res.status(404).json({status: 404, message: "Item not found."});
+        client.close();
+    }
+    catch {
+        res.status(500).json({status: 500, message: "Server error!"})
+    }
+};
+
+const updateItemName = async (req, res) => {
+    const client = new MongoClient(MONGO_URI, options);
+    try {
+        client.connect();
+        const db = client.db("Inventory");
+        const _id = req.params.itemId;
+        const newName = req.body.itemName;
+        const updateName = await db.collection("inventoryAll").findOneAndUpdate({_id: ObjectId(_id)}, {$set: {itemName: newName}}, {returnNewDocument: true});
+        updateName.lastErrorObject.updatedExisting === true?
+        res.status(200).json({status: 200, data: updateName, message: `Item name update to ${newName}`})
+        :res.status(404).json({status: 404, message: "Item not found"});
+        client.close();
+    }
+    catch {
+        res.status(500).json({status: 500, message: "Server error!"})
+    }
 }
+
 
 module.exports = {
   getAllItems,
@@ -141,5 +177,7 @@ module.exports = {
   createNewItem,
   deleteItemById,
   updateItemQuantity,
-  updateItemCategory
+  updateItemCategory,
+  updateItemNeedToBuy,
+  updateItemName
 };

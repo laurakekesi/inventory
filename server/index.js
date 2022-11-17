@@ -9,7 +9,9 @@ const {
   createNewItem,
   deleteItemById,
   updateItemQuantity,
-  updateItemCategory
+  updateItemCategory,
+  updateItemNeedToBuy,
+  updateItemName
 } = require("./handlers");
 const PORT = 4000;
 
@@ -50,10 +52,8 @@ express()
   // PATCH ENDPOINTS
   .patch('/api/itemQuantity/:itemId', updateItemQuantity)
   .patch('/api/itemCategory/:itemId', updateItemCategory)
-
-  // TO DO ENDPOINTS
-  // .patch('/api/itemNeedToBuy/:itemId')
-  // .patch('/api/itemName/:itemId')
+  .patch('/api/itemNeedToBuy/:itemId', updateItemNeedToBuy)
+  .patch('/api/itemName/:itemId', updateItemName)
 
   .listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}`);
