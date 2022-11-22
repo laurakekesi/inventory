@@ -48,6 +48,15 @@ to {
 }
 `
 
+const slideLeft = keyframes`
+from {
+  transform: translateX(+100%)
+}
+to {
+  transform: translateX(-100%)
+}
+`
+
 const PageLink = styled(Link)`
 font-size: 50px;
 text-decoration: none;
@@ -82,8 +91,9 @@ const Wrapper = styled.div`
   animation: ${slideRight} 0.5s;
   animation-fill-mode: forwards;
 }
-`
 
+
+`
 
 
 export default Navbar
