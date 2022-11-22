@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 const Category = () => {
   const [categoryInventory, setCategoryInventory] = useState(null);
   const category = useParams().category;
-  // console.log(category.category)
 
   useEffect(() => {
     fetch(`/api/items/category/${category}`)
@@ -14,7 +13,7 @@ const Category = () => {
   }, [category])
 
   return (
-    <div></div>
+    <div>{category}</div>
   )
 }
 
