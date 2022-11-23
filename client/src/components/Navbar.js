@@ -68,11 +68,10 @@ padding-top: 5px;
 
 
 &:hover{
-  animation: ${backgroundChange} 0.5s,
-    ${fontChange} 0.5s;
+  animation: ${backgroundChange} 0.3s,
+    ${fontChange} 0.3s;
     border-radius: 40%;
     animation-fill-mode: forwards;
-
 }
 `
 const NavWrapper = styled.div`
@@ -86,6 +85,7 @@ justify-content: center;
 transform: translateX(-100%);
 `
 const Wrapper = styled.div`
+animation: ${slideLeft} 0.5s;
 
 &:hover{
   animation: ${slideRight} 0.5s;
