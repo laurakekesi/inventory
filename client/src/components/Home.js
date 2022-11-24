@@ -4,6 +4,7 @@ import ItemCard from './ItemCard';
 
 const Home = () => {
 const [allInventory, setAllInventory] = useState(null);
+const [colour, setColour] = useState("blue");
 
 useEffect(()=> {
 fetch("/api/items")
@@ -36,14 +37,13 @@ fetch("/api/items")
     allInventory 
     ?<Wrapper>
     <div>All items</div>
+    <ItemCardWrapper>
     {allInventory.map((item)=>{
- 
       return(
-        <itemCardWrapper>
           <ItemCard itemName = {item.itemName} itemQuantity = {item.itemQuantity} itemCategory = {item.itemCategory}/>
-        </itemCardWrapper>
       )
     })}
+    </ItemCardWrapper>
     </Wrapper>
     :<div>Loading</div>
     
@@ -55,9 +55,8 @@ const Wrapper = styled.div`
 margin: 10vh 5vw;
 `
 
-const itemCardWrapper = styled.div`
+const ItemCardWrapper = styled.div`
 display: flex;
 flex-wrap: wrap;
-flex-direction: row;
 `
 export default Home
