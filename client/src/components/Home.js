@@ -4,28 +4,26 @@ import ItemCard from './ItemCard';
 
 const Home = () => {
 const [allInventory, setAllInventory] = useState(null);
-const alphabetizedInventoryArray = [];
 
 useEffect(()=> {
 fetch("/api/items")
 .then((res)=>res.json())
-.then((data)=>setAllInventory(data.data))
+// alphabetizes allInventory
+.then((data)=>setAllInventory(data.data.sort(function(a, b) {
+  const nameA = a.itemName.toUpperCase();
+  const nameB = b.itemName.toUpperCase(); 
+// sort in an ascending order
+  if (nameA < nameB) {
+    return -1;
+  }
+  if (nameA > nameB) {
+    return 1;
+  }
+  // names must be equal
+  return 0;
+})))
 .catch((err)=>console.log(err))
 }, [])
-
-if (allInventory){
-
-const alphabetizeInventory = () => {
-  allInventory.map((item) => {
-    alphabetizedInventoryArray.push(item.itemName)
-  });
-  alphabetizedInventoryArray.sort();
-  console.log(alphabetizedInventoryArray)
-
-}
-
-alphabetizeInventory();
-}
 
 // Search bar component at top
 // Search bar on click scrolls to item on page
@@ -41,9 +39,9 @@ alphabetizeInventory();
     {allInventory.map((item)=>{
  
       return(
-        <itemWrapper>
+        <itemCardWrapper>
           <ItemCard itemName = {item.itemName} itemQuantity = {item.itemQuantity} itemCategory = {item.itemCategory}/>
-        </itemWrapper>
+        </itemCardWrapper>
       )
     })}
     </Wrapper>
@@ -52,11 +50,12 @@ alphabetizeInventory();
   )
 }
 
+
 const Wrapper = styled.div`
 margin: 10vh 5vw;
 `
 
-const itemWrapper = styled.div`
+const itemCardWrapper = styled.div`
 display: flex;
 flex-wrap: wrap;
 flex-direction: row;
