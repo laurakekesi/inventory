@@ -2,7 +2,7 @@ import React from 'react';
 import { TbApple, TbSausage, TbCheese, TbBread, TbMilk, TbGlass, TbCircles} from "react-icons/tb";
 import styled from 'styled-components';
 
-const ItemCardContent = ({itemName, itemQuantity, itemCategory}) => {
+const ItemCardIcon = ({itemCategory}) => {
 
   if (itemCategory === "Produce"){
     return(
@@ -45,4 +45,4 @@ const IconDiv = styled.div`
 font-size: 60px;
 `
 
-export default ItemCardContent
+export default ItemCardIcon

@@ -1,5 +1,4 @@
 import {createGlobalStyle} from 'styled-components';
-import Fronk from "../images/Fronkie.png";
 
 export default createGlobalStyle`
 /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -9,6 +8,8 @@ export default createGlobalStyle`
 
 :root {
     background-color: beige;
+	font-family: 'Montserrat', sans-serif;
+	--header-font-family: 'Bebas Neue', cursive
 }
 
 

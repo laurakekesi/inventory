@@ -4,7 +4,6 @@ import ItemCard from "./ItemCard";
 
 const Home = () => {
   const [allInventory, setAllInventory] = useState(null);
-  const [colour, setColour] = useState("blue");
 
   useEffect(() => {
     fetch("/api/items")
@@ -63,25 +62,4 @@ const ItemCardWrapper = styled.div`
   margin-left: -10px;
 `;
 
-const MiscDiv = styled.div`
-  background-color: orange;
-`;
-const AlcoholDiv = styled.div`
-  background-color: pink;
-`;
-const DryDiv = styled.div`
-  background-color: purple;
-`;
-const GrainsDiv = styled.div`
-  background-color: yellow;
-`;
-const ProduceDiv = styled.div`
-  background-color: green;
-`;
-const ProteinDiv = styled.div`
-  background-color: red;
-`;
-const DairyDiv = styled.div`
-  background-color: blue;
-`;
 export default Home;
