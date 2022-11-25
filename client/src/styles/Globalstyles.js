@@ -8,7 +8,7 @@ export default createGlobalStyle`
 */
 
 :root {
-    background-image: url(${Fronk});
+    background-color: beige;
 }
 
 
