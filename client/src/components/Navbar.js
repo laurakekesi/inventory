@@ -65,6 +65,7 @@ width: 100%;
 text-align: center;
 margin-top: 10px;
 padding-top: 5px;
+display: block;
 
 
 &:hover{
@@ -79,10 +80,12 @@ display: flex;
 flex-direction: column;
 background-color: rgba(247, 153, 178, 0.4);
 width: 55px;
-height: 100vh;
 align-items: center;
-justify-content: center;
+/* justify-content: center; */
 transform: translateX(-100%);
+height: 100%;
+z-index: 1;
+padding-top: 20vh;
 `
 const Wrapper = styled.div`
 animation: ${slideLeft} 0.5s;
