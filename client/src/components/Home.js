@@ -38,7 +38,7 @@ const Home = () => {
 
   return allInventory ? (
     <Wrapper>
-      <div>All items</div>
+      <AllItemsHeader>All Items (a-z)</AllItemsHeader>
       <ItemCardWrapper>
         {allInventory.map((item) => {
           return(
@@ -52,14 +52,22 @@ const Home = () => {
   );
 };
 
+const AllItemsHeader = styled.div`
+font-family: var(--header-font-family);
+width: 100%;
+border-bottom: 1px black solid;
+`
 const Wrapper = styled.div`
   margin: 10vh 5vw;
+
 `;
 
 const ItemCardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-left: -10px;
+  /* display: flex; */
+  justify-content: center;
 `;
 
 export default Home;

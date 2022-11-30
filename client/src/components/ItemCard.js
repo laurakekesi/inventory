@@ -1,6 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
 import ItemCardIcon from './ItemCardIcon';
+import { TbTrash } from "react-icons/tb";
+
 
 
 const ItemCard = ({itemName, itemQuantity, itemCategory}) => {
@@ -21,19 +23,78 @@ return (
         <ItemInfo>{itemQuantity}</ItemInfo>
     </MiddleDiv>
     <BottomDiv>
-
+        <UpdateButton>Update</UpdateButton>
+        <TrashButton><TbTrash/></TrashButton>
     </BottomDiv>
 </Wrapper>
 )
 }
+
+const backgroundChange = keyframes`
+from {
+  background-color: rgba(247, 153, 178, 0.4);
+}
+to {
+  background-color: rgba(247, 153, 178, 0.7);
+}
+`;
+
+const fontChange = keyframes`
+from {
+  color: black
+}
+to {
+color: white;
+}
+`;
+
+const fontSizeChange = keyframes`
+from {
+font-size: 15px;
+}
+to {
+font-size: 17px;
+}
+`
+
+const TrashButton = styled.button`
+border: none;
+background: none;
+cursor: pointer;
+font-size: 15px;
+margin-top: 5px;
+
+&:hover{
+    animation: ${fontSizeChange} 0.3s;
+    animation-fill-mode: forwards;
+}
+`
+const UpdateButton = styled.button`
+width: 50%;
+height: 40px;
+background-color: rgba(247, 153, 178, 0.4);
+border-radius: 10px;
+font-family: var(--header-font-family);
+font-size: 16px;
+border: none;
+cursor: pointer;
+
+&:hover{
+  animation: ${backgroundChange} 0.3s,
+    ${fontChange} 0.3s;
+    animation-fill-mode: forwards;
+}
+`
 const ItemDescriptor = styled.div`
 font-size: 17px;
 margin-bottom: 2px;
 font-family: var(--header-font-family);
+color: black;
 `
 const ItemInfo = styled.div`
 font-size: 17px;
 margin-bottom: 15px;
+color: black;
 `
 const TopDiv = styled.div`
 height: 30%;
@@ -49,6 +110,10 @@ justify-content: center;
 align-items: center;
 `
 const BottomDiv = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
 `
 const Wrapper = styled.div`
 height: 40vh;
