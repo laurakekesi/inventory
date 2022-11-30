@@ -59,14 +59,12 @@ border-bottom: 1px black solid;
 `
 const Wrapper = styled.div`
   margin: 10vh 5vw;
-
 `;
 
 const ItemCardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-left: -10px;
-  /* display: flex; */
   justify-content: center;
 `;
 
