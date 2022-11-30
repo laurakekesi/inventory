@@ -81,21 +81,20 @@ flex-direction: column;
 background-color: rgba(247, 153, 178, 0.4);
 width: 55px;
 align-items: center;
-/* justify-content: center; */
+justify-content: center;
 transform: translateX(-100%);
 height: 100%;
 z-index: 1;
-padding-top: 20vh;
 `
 const Wrapper = styled.div`
 animation: ${slideLeft} 0.5s;
+position: fixed;
+height: 100%;
 
 &:hover{
   animation: ${slideRight} 0.5s;
   animation-fill-mode: forwards;
 }
-
-
 `
 
 
