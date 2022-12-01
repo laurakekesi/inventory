@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { Context } from '../Context';
 import ItemCard from './ItemCard';
 
 const Category = () => {
+  const { alphabetize } = useContext(Context);
   const [categoryInventory, setCategoryInventory] = useState(null);
   const category = useParams().category;
 
   useEffect(() => {
     fetch(`/api/items/category/${category}`)
     .then((res) => res.json())
-    .then((data)=>setCategoryInventory(data.data))
+    .then((data)=>setCategoryInventory(data.data.sort(alphabetize)))
     .catch((err)=>console.log(err))
   }, [category])
 
@@ -27,9 +29,19 @@ const Category = () => {
     </Wrapper>
   )
   : (
-    <div>Loading</div>
+    <LoadingWrapper>
+      <iframe src="https://giphy.com/embed/l3aMGM9Ez3ZzeCJIn5" width="280" height="176" frameBorder="0" allowFullScreen></iframe>
+    </LoadingWrapper>
   )
 }
+
+const LoadingWrapper = styled.div`
+display: flex;
+width: 100%;
+height: 100vh;
+justify-content: center;
+align-items: center;
+`
 const ItemCardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
