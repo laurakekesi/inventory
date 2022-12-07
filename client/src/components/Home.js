@@ -1,23 +1,12 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Context } from "../Context";
 import ItemCard from "./ItemCard";
+import Searchbar from "./Searchbar";
 
 const Home = () => {
-  const { alphabetize } = useContext(Context);
-  const [allInventory, setAllInventory] = useState(null);
+  const { alphabetize, allInventory } = useContext(Context);
   const [needToBuy, setNeedToBuy] = useState(null);
-  const refs = useRef([]);
-
-  useEffect(() => {
-    fetch("/api/items")
-      .then((res) => res.json())
-      // alphabetizes allInventory
-      .then((data) =>
-        setAllInventory(data.data.sort(alphabetize))
-      )
-      .catch((err) => console.log(err));
-  }, []);
 
   useEffect(() => {
   fetch("/api/items/needToBuy")
@@ -27,14 +16,17 @@ const Home = () => {
   }, [])
 
   // TO DO
-  // Search bar component at top
-  // Search bar on click scrolls to item on page
-  // Need to buy items
+  // Search bar component under need to buy. 
+  // As typing, cards matching that item show up underneath? (maybe after 3 letters)
   // Able to take a picture for items, otherwise icon
 
   return allInventory && needToBuy? (
     <>
       <Wrapper>
+        <Header>Search</Header>
+        <SearchDiv>
+          <Searchbar/>
+        </SearchDiv>
         <Header>Running Low</Header>
         <NeedToBuy>
           {needToBuy.map((item, index) => {
@@ -70,6 +62,10 @@ const Home = () => {
     </LoadingWrapper>
   );
 };
+
+const SearchDiv = styled.div`
+padding-bottom: 15px;
+`
 const NeedToBuy = styled.div`
 margin-bottom: 20px;
 `
