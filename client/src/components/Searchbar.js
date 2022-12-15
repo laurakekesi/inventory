@@ -54,10 +54,10 @@ export default Searchbar;
 
 const fontChange = keyframes`
 from {
-  color: black
+  color: white
 }
 to {
-color: white;
+color: black;
 }
 `;
 
@@ -73,6 +73,7 @@ const ClearButton = styled.button`
   cursor: pointer;
   font-size: 15px;
   padding: 0 0 1px 1px;
+  color: white;
   &:hover {
     animation: ${fontChange} 0.3s;
     animation-fill-mode: forwards;
