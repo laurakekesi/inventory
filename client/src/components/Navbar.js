@@ -64,7 +64,7 @@ color: black;
 width: 100%;
 text-align: center;
 margin-top: 10px;
-padding-top: 5px;
+padding-bottom: 5px;
 display: block;
 
 

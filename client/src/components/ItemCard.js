@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import ItemCardIcon from './ItemCardIcon';
 import { TbTrash } from "react-icons/tb";
+import UpdateModal from './UpdateModal';
 
 
 
@@ -23,7 +24,7 @@ return (
         <ItemInfo>{itemQuantity}</ItemInfo>
     </MiddleDiv>
     <BottomDiv>
-        <UpdateButton>Update</UpdateButton>
+        <UpdateModal/>
         <TrashButton><TbTrash/></TrashButton>
     </BottomDiv>
 </Wrapper>
@@ -69,22 +70,7 @@ margin-top: 5px;
     animation-fill-mode: forwards;
 }
 `
-const UpdateButton = styled.button`
-width: 50%;
-height: 40px;
-background-color: rgba(247, 153, 178, 0.4);
-border-radius: 10px;
-font-family: var(--header-font-family);
-font-size: 16px;
-border: none;
-cursor: pointer;
 
-&:hover{
-  animation: ${backgroundChange} 0.3s,
-    ${fontChange} 0.3s;
-    animation-fill-mode: forwards;
-}
-`
 const ItemDescriptor = styled.div`
 font-size: 17px;
 margin-bottom: 2px;

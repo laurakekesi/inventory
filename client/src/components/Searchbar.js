@@ -63,6 +63,7 @@ color: black;
 
 const SearchResults = styled.div`
   display: flex;
+  width: 80vw;
 `;
 const ClearButton = styled.button`
   border: none;
