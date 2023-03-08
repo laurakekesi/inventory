@@ -40,7 +40,7 @@ const UpdateModal = () => {
 }
 const backgroundChange = keyframes`
 from {
-    background-color: beige;
+    background-color: rgba(247, 153, 178, 0.2);
 }
 to {
   background-color: rgba(247, 153, 178, 0.7);
@@ -58,13 +58,13 @@ color: white;
 const UpdateButton = styled.button`
 width: 50%;
 height: 40px;
-/* background-color: rgba(247, 153, 178, 0.4); */
+background-color: rgba(247, 153, 178, 0.2);
 border-radius: 10px;
 font-family: var(--header-font-family);
 font-size: 16px;
-border: pink 2px solid;
+border: none;
 cursor: pointer;
-background-color: beige;
+/* background-color: beige; */
 
 &:hover{
   animation: ${backgroundChange} 0.3s,
