@@ -8,10 +8,7 @@ import UpdateModal from './UpdateModal';
 
 const ItemCard = ({itemName, itemQuantity, itemCategory}) => {
 
-    // Main Wrapper
-    // TopDiv: category icon, eventually option to add photo
-    // MiddleDiv: itemName, itemQuantity
-    // BottomDiv: update item button (popup update cat, quant, or name), delete item button
+
 return (
 <Wrapper>
     <TopDiv>
@@ -108,7 +105,9 @@ margin: 10px;
 border-radius: 20px;
 box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 /* box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px; */
-background-color: rgba(255, 255, 255, 0.2);
+/* background-color: rgba(255, 255, 255, 0.2); */
+background-image: linear-gradient(rgba(250, 179, 197,0.2), rgba(255, 255, 255, 0.2));
 color: grey;
+border: pink 2px solid;
 `
 export default ItemCard

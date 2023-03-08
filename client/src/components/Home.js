@@ -15,11 +15,6 @@ const Home = () => {
   .catch((err) => console.log(err))
   }, [])
 
-  // TO DO
-  // Search bar component under need to buy. 
-  // As typing, cards matching that item show up underneath? (maybe after 3 letters)
-  // Able to take a picture for items, otherwise icon
-
   return allInventory && needToBuy? (
     <>
       <Wrapper>

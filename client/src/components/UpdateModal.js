@@ -20,9 +20,10 @@ const UpdateModal = () => {
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
+        centered={true}
       >
-        <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+        <Modal.Header closeButton style={{backgroundColor: '#257df9'}}>
+          <Modal.Title style={{color: 'white'}}>Update Item</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           Update item info
@@ -31,7 +32,7 @@ const UpdateModal = () => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary">Understood</Button>
+          <Button variant="primary">Update</Button>
         </Modal.Footer>
       </Modal>
     </>
@@ -39,7 +40,7 @@ const UpdateModal = () => {
 }
 const backgroundChange = keyframes`
 from {
-  background-color: rgba(247, 153, 178, 0.4);
+    background-color: beige;
 }
 to {
   background-color: rgba(247, 153, 178, 0.7);
@@ -57,12 +58,13 @@ color: white;
 const UpdateButton = styled.button`
 width: 50%;
 height: 40px;
-background-color: rgba(247, 153, 178, 0.4);
+/* background-color: rgba(247, 153, 178, 0.4); */
 border-radius: 10px;
 font-family: var(--header-font-family);
 font-size: 16px;
-border: none;
+border: pink 2px solid;
 cursor: pointer;
+background-color: beige;
 
 &:hover{
   animation: ${backgroundChange} 0.3s,
