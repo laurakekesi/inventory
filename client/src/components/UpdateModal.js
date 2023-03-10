@@ -119,6 +119,7 @@ const {setInventoryAction, inventoryAction} = useContext(Context)
               placeholder={itemQuantity}
               id="itemQuantity"
               type="number"
+              min="0"
             ></Input>
             <Label for="itemCategory">Item Category:</Label>
             {/* Dropdown menu preventing user from updating to non-existing category */}

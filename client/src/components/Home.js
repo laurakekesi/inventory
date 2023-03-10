@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import { Context } from "../Context";
 import ItemCard from "./ItemCard";
 import Searchbar from "./Searchbar";
+import NewItemModal from "./NewItemModal"
 
 const Home = () => {
-  const { alphabetize, allInventory } = useContext(Context);
+  const { alphabetize, allInventory, inventoryAction} = useContext(Context);
   const [needToBuy, setNeedToBuy] = useState(null);
 
   useEffect(() => {
@@ -13,7 +14,7 @@ const Home = () => {
   .then((res) => res.json())
   .then((data) => setNeedToBuy(data.data.sort(alphabetize)))
   .catch((err) => console.log(err))
-  }, [])
+  }, [inventoryAction])
 
   return allInventory && needToBuy? (
     <>
@@ -30,7 +31,11 @@ const Home = () => {
             )
           })}
         </NeedToBuy>
-        <Header>All Items (a-z)</Header>
+        <Header>
+          All Items (a-z)
+          
+        </Header>
+<NewItemModal/>
         <ItemCardWrapper>
           {allInventory.map((item, index) => {
             return (
@@ -59,6 +64,31 @@ const Home = () => {
   );
 };
 
+const backgroundChange = keyframes`
+from {
+    background-color: none;
+}
+to {
+  background-color: rgba(71, 232, 87, 0.7);
+}
+`;
+const borderChange = keyframes`
+from {
+  border: 2px rgb(71, 232, 87) solid;
+}
+to {
+  border: 2px white solid;
+}
+`
+
+const fontChange = keyframes`
+from {
+  color: rgb(71, 232, 87)
+}
+to {
+color: white;
+}
+`;
 const SearchDiv = styled.div`
 padding-bottom: 15px;
 `
@@ -88,5 +118,25 @@ const ItemCardWrapper = styled.div`
   margin-left: -10px;
   justify-content: center;
 `;
+
+const AddButton = styled.button`
+  background-color: beige;
+  color: rgb(71, 232, 87);
+  border: 2px rgb(71, 232, 87) solid;
+  float: right;
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  padding-top: 2px;
+  font-family: var(--header-font-family);
+  font-size: 30px;
+  cursor: pointer;
+
+  &:hover {
+    animation: ${backgroundChange} 0.3s, ${fontChange} 0.3s, ${borderChange} 0.3s;
+    animation-fill-mode: forwards;
+  }
+`;
+
 
 export default Home;
