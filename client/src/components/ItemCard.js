@@ -6,7 +6,7 @@ import UpdateModal from "./UpdateModal";
 import { Context } from "../Context";
 
 const ItemCard = ({ itemName, itemQuantity, itemCategory, itemId }) => {
-  const { setInventoryAction } = useContext(Context);
+  const { setInventoryAction, inventoryAction } = useContext(Context);
 
   //deletes item, used on TrashButton
   const deleteItem = (e) => {
@@ -15,7 +15,7 @@ const ItemCard = ({ itemName, itemQuantity, itemCategory, itemId }) => {
       method: "DELETE",
     })
       .then((res) => res.json())
-      .then(setInventoryAction("Deleted"))
+      .then(setInventoryAction(!inventoryAction))
       .catch((err) => console.log(err));
   };
 

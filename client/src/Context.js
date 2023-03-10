@@ -4,7 +4,7 @@ export const Context = createContext();
 
 export const ContextProvider = ({ children }) => {
   const [allInventory, setAllInventory] = useState(null);
-  const [inventoryAction, setInventoryAction] = useState("Initial State")
+  const [inventoryAction, setInventoryAction] = useState(true)
 
   const alphabetize = (a, b) => {
     const nameA = a.itemName.toUpperCase();
@@ -29,7 +29,7 @@ export const ContextProvider = ({ children }) => {
   }, [inventoryAction]);
 
   return (
-    <Context.Provider value={{ alphabetize, allInventory, setInventoryAction }}>
+    <Context.Provider value={{ alphabetize, allInventory, setInventoryAction, inventoryAction }}>
       {children}
     </Context.Provider>
   );

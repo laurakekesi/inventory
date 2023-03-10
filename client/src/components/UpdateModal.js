@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import styled, { keyframes } from "styled-components";
+import { Context } from "../Context";
 
 const UpdateModal = ({ itemName, itemQuantity, itemCategory, itemId }) => {
+
+const {setInventoryAction, inventoryAction} = useContext(Context)
+
   const [show, setShow] = useState(false);
-  const [itemNameOriginal, setItemName] = useState(itemName);
-  const [itemQuantityOriginal, setItemQuantity] = useState(itemQuantity);
-  const [itemCategoryOriginal, setItemCategory] = useState(itemCategory);
+  const [itemNameNew, setItemName] = useState(itemName);
+  const [itemQuantityNew, setItemQuantity] = useState(itemQuantity);
+  const [itemCategoryNew, setItemCategory] = useState(itemCategory);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -15,6 +19,73 @@ const UpdateModal = ({ itemName, itemQuantity, itemCategory, itemId }) => {
   //sets new Item Category depending on selected value in the form.
   const itemCatChange = (e) => {
     setItemCategory(e.target.value);
+  };
+
+//depending on what information has been changed, corresponding patch will take place
+//if itemQuantity is changed, it will patch the itemQuantity, as well as needToBuy 
+    //(if < 2, sets to true)
+    //(else, sets to false)
+//then inventoryAction state is changed, allowing the homepage to reload
+//then modal is closed
+  const updateItemHandler = (e) => {
+      e.preventDefault()
+    if (itemNameNew !== itemName) {
+      fetch(`/api/itemName/${itemId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          itemName: itemNameNew,
+        }),
+      })
+        .then((res) => res.json())
+        .catch((err) => console.log(err));
+    }
+    if (itemQuantityNew !== itemQuantity) {
+      fetch(`/api/itemQuantity/${itemId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          itemQuantity: itemQuantityNew,
+        }),
+      })
+        .then((res) => res.json())
+        .catch((err) => console.log(err));
+
+      if (itemQuantityNew < 2) {
+        fetch(`/api/itemNeedToBuy/${itemId}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            needToBuy: true,
+          }),
+        })
+          .then((res) => res.json())
+          .catch((err) => console.log(err));
+      } else {
+        fetch(`/api/itemNeedToBuy/${itemId}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            needToBuy: false,
+          }),
+        })
+          .then((res) => res.json())
+          .catch((err) => console.log(err));
+      }
+    }
+    if (itemCategoryNew !== itemCategory) {
+      fetch(`/api/itemCategory/${itemId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          itemCategory: itemCategoryNew,
+        }),
+      })
+        .then((res) => res.json())
+        .catch((err) => console.log(err));
+    }
+    setInventoryAction(!inventoryAction)
+    handleClose()
   };
 
   return (
@@ -42,6 +113,7 @@ const UpdateModal = ({ itemName, itemQuantity, itemCategory, itemId }) => {
               id="itemName"
             ></Input>
             <Label for="itemQuantity">Item Quantity:</Label>
+            {/* Makes sure that user can only select a number */}
             <Input
               onChange={(e) => setItemQuantity(e.target.value)}
               placeholder={itemQuantity}
@@ -49,7 +121,12 @@ const UpdateModal = ({ itemName, itemQuantity, itemCategory, itemId }) => {
               type="number"
             ></Input>
             <Label for="itemCategory">Item Category:</Label>
-            <select name="itemCategory" id="itemCategory" onChange={itemCatChange}>
+            {/* Dropdown menu preventing user from updating to non-existing category */}
+            <select
+              name="itemCategory"
+              id="itemCategory"
+              onChange={itemCatChange}
+            >
               <option value="" disabled selected hidden>
                 {itemCategory}
               </option>
@@ -67,7 +144,7 @@ const UpdateModal = ({ itemName, itemQuantity, itemCategory, itemId }) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary">Update</Button>
+          <Button variant="primary" onClick={updateItemHandler}>Update</Button>
         </Modal.Footer>
       </Modal>
     </>
