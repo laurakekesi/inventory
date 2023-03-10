@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled, { keyframes } from 'styled-components';
 import ItemCardIcon from './ItemCardIcon';
 import { TbTrash } from "react-icons/tb";
 import UpdateModal from './UpdateModal';
+import { Context } from '../Context';
 
 
 
-const ItemCard = ({itemName, itemQuantity, itemCategory}) => {
+const ItemCard = ({itemName, itemQuantity, itemCategory, itemId}) => {
+const {setInventoryAction} = useContext(Context);
+
+//deletes item, used on TrashButton
+const deleteItem = (e) => {
+  e.preventDefault();
+  fetch(`/api/item/${itemId}`, {
+    method: "DELETE",
+  })
+  .then((res)=>res.json())
+  .then(setInventoryAction("Deleted"))
+  .catch((err) => console.log(err))
+};
 
 
 return (
@@ -22,7 +35,7 @@ return (
     </MiddleDiv>
     <BottomDiv>
         <UpdateModal/>
-        <TrashButton><TbTrash/></TrashButton>
+        <TrashButton onClick={deleteItem}><TbTrash/></TrashButton>
     </BottomDiv>
 </Wrapper>
 )

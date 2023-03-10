@@ -38,6 +38,7 @@ const Home = () => {
                 itemName={item.itemName}
                 itemQuantity={item.itemQuantity}
                 itemCategory={item.itemCategory}
+                itemId={item._id}
                 key = {`item-${index}`}
               />
             );

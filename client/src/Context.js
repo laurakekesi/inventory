@@ -4,6 +4,7 @@ export const Context = createContext();
 
 export const ContextProvider = ({ children }) => {
   const [allInventory, setAllInventory] = useState(null);
+  const [inventoryAction, setInventoryAction] = useState("Initial State")
 
   const alphabetize = (a, b) => {
     const nameA = a.itemName.toUpperCase();
@@ -25,10 +26,10 @@ export const ContextProvider = ({ children }) => {
       .then((res) => res.json())
       .then((data) => setAllInventory(data.data.sort(alphabetize)))
       .catch((err) => console.log(err));
-  }, []);
+  }, [inventoryAction]);
 
   return (
-    <Context.Provider value={{ alphabetize, allInventory }}>
+    <Context.Provider value={{ alphabetize, allInventory, setInventoryAction }}>
       {children}
     </Context.Provider>
   );
