@@ -3,7 +3,8 @@ import styled, {keyframes} from "styled-components";
 import { Context } from "../Context";
 import ItemCard from "./ItemCard";
 import Searchbar from "./Searchbar";
-import NewItemModal from "./NewItemModal"
+import NewItemModal from "./NewItemModal";
+import Spinner from 'react-bootstrap/Spinner';
 
 const Home = () => {
   const { alphabetize, allInventory, inventoryAction} = useContext(Context);
@@ -53,13 +54,9 @@ const Home = () => {
     </>
   ) : (
     <LoadingWrapper>
-      <iframe
-        src="https://giphy.com/embed/l3aMGM9Ez3ZzeCJIn5"
-        width="280"
-        height="176"
-        frameBorder="0"
-        allowFullScreen
-      ></iframe>
+      <Spinner animation="grow" variant="danger"  style={{margin: "20px"}}/>
+      <Spinner animation="grow" variant="warning" style={{margin: "20px"}}/>
+      <Spinner animation="grow" variant="info" style={{margin: "20px"}}/>
     </LoadingWrapper>
   );
 };
