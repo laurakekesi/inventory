@@ -134,7 +134,7 @@ to {
 `;
 const borderChange = keyframes`
 from {
-  border: 2px rgb(71, 232, 87) solid;
+  border: 2px rgba(71, 232, 87, 0.2) solid;
 }
 to {
   border: 2px white solid;
@@ -153,7 +153,7 @@ color: white;
 const AddButton = styled.button`
   background-color: beige;
   color: rgb(71, 232, 87);
-  border: 2px rgb(71, 232, 87) solid;
+  border: 2px rgba(71, 232, 87, 0.2) solid;
   float: right;
   border-radius: 50%;
   height: 35px;

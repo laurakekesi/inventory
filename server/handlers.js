@@ -65,7 +65,7 @@ const createNewItem = async (req, res) => {
   const db = client.db("Inventory");
   const newItem = req.body;
   newItem.needToBuy = false;
-  if (newItem.itemQuantity <= 1) {
+  if (newItem.itemQuantity <= 2) {
     newItem.needToBuy = true;
   }
   const createItem = await db.collection("inventoryAll").insertOne(newItem);

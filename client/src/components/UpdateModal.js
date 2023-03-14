@@ -51,7 +51,7 @@ const {setInventoryAction, inventoryAction} = useContext(Context)
         .then((res) => res.json())
         .catch((err) => console.log(err));
 
-      if (itemQuantityNew < 2) {
+      if (itemQuantityNew < 3 && itemQuantityNew >=0) {
         fetch(`/api/itemNeedToBuy/${itemId}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
